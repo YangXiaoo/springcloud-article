@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header">
+    <ul class="layui-nav">
+        <li class="layui-nav-item">
+            <a th:href="@{/article/list}">HOME</a>
+        </li>
+        <li class="layui-nav-item" th:if="${user}">
+            <a th:href="@{/article/add}">发布<span class="layui-badge-dot"></span></a>
+        </li>
+        <li class="layui-nav-item" lay-unselect="" th:if="${user}">
+            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img" th:text="${user.getUsername()}"></a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:;">修改信息</a></dd>
+                <dd><a href="javascript:;">安全管理</a></dd>
+                <dd><a th:href="@{/user/signout}">退了</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"th:unless="${user}">
+            <a th:href="@{/user/signup}"><span>注册</span></a>
+        </li>
+        <li class="layui-nav-item"th:unless="${user}">
+            <a th:href="@{/user/signin}"><span>登录</span></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
