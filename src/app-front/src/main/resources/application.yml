@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  #模板引擎
+  thymeleaf:
+    prefix: classpath:/templates/
+    mode: HTML5
+    cache: false
+   #数据库
+  datasource:
+    name: appfront
+    url: jdbc:mysql://localhost:3306/bbs??useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: Ab127000
+    driver-class-name: com.mysql.jdbc.Driver
+  application:
+    name: app-front
+
+  zipkin:
+    base-url: http://localhost:9411
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: online.yangxiao.appfront.entity
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+feign.hystrix.enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

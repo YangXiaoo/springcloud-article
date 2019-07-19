@@ -1,0 +1,18 @@
+#spring:
+#  rabbitmq:
+#    password: guest
+#    username: guest
+#    port: 5672
+#    host: localhost
+#  cloud:
+#    bus:
+#      trace:
+#        enabled: true
+#      enabled: true
+#    config:
+##      uri: http://localhost:8763/
+##      label: master
+#      profile: dev
+#      discovery:
+#        enabled: true
+#        serviceId: config-server

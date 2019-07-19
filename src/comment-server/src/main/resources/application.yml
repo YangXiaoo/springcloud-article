@@ -1,0 +1,25 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  datasource:
+    name: comment
+    url: jdbc:mysql://localhost:3306/bbs??useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: Ab127000
+    driver-class-name: com.mysql.jdbc.Driver
+
+  application:
+    name: comment-server
+
+  zipkin:
+    base-url: http://localhost:9411
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: online.yangxiao.common.entity

@@ -1,0 +1,132 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" th:href="@{/plugs/layui/css/layui.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-front.css}" />
+    <title>文章</title>
+</head>
+<body>
+<div class="app-header">
+    <ul class="layui-nav">
+        <li class="layui-nav-item">
+            <a th:href="@{/article/list}">HOME</a>
+        </li>
+        <li class="layui-nav-item" th:if="${user}">
+            <a th:href="@{/article/add}">发布<span class="layui-badge-dot"></span></a>
+        </li>
+        <li class="layui-nav-item" lay-unselect="" th:if="${user}">
+            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img" th:text="${user.getUsername()}"></a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:;">修改信息</a></dd>
+                <dd><a href="javascript:;">安全管理</a></dd>
+                <dd><a th:href="@{/user/signout}">退了</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"th:unless="${user}">
+            <a th:href="@{/user/signup}"><span>注册</span></a>
+        </li>
+        <li class="layui-nav-item"th:unless="${user}">
+            <a th:href="@{/user/signin}"><span>登录</span></a>
+        </li>
+    </ul>
+</div>
+
+<div class="app-container">
+    <div class="layui-row">
+        <div class="app-left-side layui-col-xs12 layui-col-md6 layui-col-md-offset3">
+
+            <div class="bbs-single-box clear">
+                <div class="left">
+
+                    <div class="avatar">
+                        <a th:href="@{/user/profile(uid=${article.user.id})}" target="_blank">
+                            <img th:src="${article.user.profile}" class="avatar opacity" width="50" height="50" /></a>
+                    </div>
+                    <div class="name">
+                        <a th:href="@{/user/profile(uid=${article.user.id})}" target="_blank" th:text="${article.user.username}"></a>
+                        <br>
+                        <br>
+                        版主
+                    </div>
+                    <div class="info">
+                    </div>
+                </div><!-- left -->
+
+                <div class="right">
+                    <div class="bbs-single-content">
+                        <p th:text="${article.content}"></p>
+                    </div>
+                    <div class="bbs-single-footer">
+                        <span>点赞: <span th:text="${article.upvote}"></span></span>
+
+                        <span onclick=''>拉黑</span><span th:text="${article.createTime}"></span>
+                        <span onclick="" class="comment reply-btn" th:if="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-uid=${user.id}" data-pcid="0" data-puid="0">回复</span>
+                        <span onclick="" class="comment reply-btn" th:unless="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}" data-pcid="0" data-puid="0" data-uid="-1">回复</span>
+                        <a style="color: #999;"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bbs-single-box clear" th:each="comment:${commentList}">
+                <div class="left">
+
+                    <div class="avatar">
+                        <a th:href="@{/user/profile(uid=${comment.user.id})}" target="_blank">
+                            <img th:src="${comment.user.profile}" class="avatar opacity" width="50" height="50" /></a>
+                    </div>
+                    <div class="name">
+                        <a th:href="@{/user/profile(uid=${comment.user.id})}" target="_blank" th:text="${comment.user.username}"></a>
+                    </div>
+                    <div class="info">
+                    </div>
+                </div><!-- left -->
+
+                <div class="right">
+                    <div class="bbs-single-content">
+                        <p th:text="${comment.content}"></p>
+                    </div>
+                    <div class="bbs-single-footer">
+                        <span onclick=''>拉黑</span><span th:text="${comment.createTime}"></span>
+                        <span onclick="" class="comment reply-btn" th:if="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${comment.user.id}, data-uid=${user.id}">回复</span>
+                        <span onclick="" class="comment reply-btn" th:unless="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${comment.user.id}" data-uid="-1">回复</span>
+                        <a style="color: #999;"></a>
+                    </div>
+                        <div class="bbs-comment-floor clear" style="display:block;" th:each="childComment:${comment.childComment}">
+                            <div class="bbs-comment-floor-list" >
+                                <li class="clear">
+                                    <div class="floor-left">
+                                        <a th:href="@{/user/profile(uid=${childComment.user.id})}" target="_blank">
+                                            <img th:src="${childComment.user.profile}" class="avatar opacity" width="40" height="40" /></a>
+                                    </div>
+
+                                    <div class="floor-right">
+                                        <div class="name">
+                                            <a th:href="@{/user/profile(uid=${childComment.user.id})}" target="_blank"><font style="color:#FF5722;" th:text="${childComment.user.username}"></font></a>:
+                                                <a href="{ctx}/user?uid={r.puser.id}" th:if="${comment.user.id == childComment.pUserId}" ></a>
+                                                <a href="{ctx}/user?uid={r.puser.id}" th:if="${comment.user.id != childComment.pUserId}" >@<span th:text="${childComment.pUserId}"></span></a>
+                                            &nbsp;
+                                            <span class="content" th:text="${childComment.content}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="bottom">
+                                        <span onclick=''>拉黑</span>
+                                        <span th:text="${childComment.createTime}"></span>
+                                        <span onclick="" class="comment reply-btn" th:if="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${childComment.user.id}, data-uid=${user.id}">回复</span>
+                                        <span onclick="" class="comment reply-btn" th:unless="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${childComment.user.id}" data-uid="-1">回复</span>
+                                    </div>
+                                </li>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--<script th:src="@{/js/jquery/jquery.form.js}"></script>-->
+<script th:src="@{/js/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugs/layui/layui.js}"></script>
+<script th:src="@{/js/app-front.js}"></script>
+</html>

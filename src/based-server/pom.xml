@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>bbs</artifactId>
+        <groupId>online.yangxiao</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>based-server</artifactId>
+    <groupId>online.yangxiao.base</groupId>
+    <name>basedServer</name>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>zuul-server</module>
+        <module>eureka-server</module>
+        <module>config-server</module>
+        <module>sleuth-server</module>
+        <module>hystrix-dashboard</module>
+    </modules>
+
+
+</project>
