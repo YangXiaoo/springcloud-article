@@ -31,24 +31,24 @@
 - 启动base-server/zuul-server服务网关
 
 ## 运行截图
-- 访问http://localhost:8761/查看注册服务
+- 访问[http://localhost:8761/](http://localhost:8761/)查看注册服务
 ![](/capture/ureka.png)
-- 访问http://localhost:8763/config-dev/default/查看配置消息
+- 访问[http://localhost:8763/config-dev/default/](http://localhost:8763/config-dev/default/) 查看配置消息
 ![](/capture/config-server.png)
-- 访问http://localhost:8080/demo/config-client查看配置是否成功
+- 访问[http://localhost:8080/demo/config-client](http://localhost:8080/demo/config-client) 查看配置是否成功
 ![](/capture/config-client.png)
-- 访问http://localhost:8080/article/list进入应用
-![](/capture/article-list.png)
-- 通过服务网关zuul进入应用, http://localhost:8762/article/list
+- 访问[http://localhost:8080/article/list](http://localhost:8080/article/list) 进入应用
+- ![](/capture/article-list.png)
+- 通过服务网关zuul进入应用, [http://localhost:8762/article/list](http://localhost:8762/article/list)
 - [](/capture/article-list.png)
-- 查看容错面板需启动base-server/hystrix-dashboard，然后访问http://localhost:8765/hystrix
-![](/capture/hystrix-dashboard.png)
+- 查看容错面板需启动base-server/hystrix-dashboard，然后访问[http://localhost:8765/hystrix](http://localhost:8765/hystrix)
+- ![](/capture/hystrix-dashboard.png)
 - 在面板中输入参数，点击monitor stream
 - [](/capture/hystrix-input.png)
 - 新页面没有记录, 进入文章列表随便点击一个文章链接，这样服务之间就相互调用，此时刷新hystrix面板会有新的内容
 - [](/capture/hystrix-detail.png)
 
-- 查看链路。首先下载zipkin.jar, 使用命令```java -jar zipkin-server-2.10.1-exec.jar localhost:9411```打开服务器。然后再浏览器中访问http://localhost:9411/zipkin/,发现什么也没有，因为没有此时没有记录服务之间的调用，进入文章列表点击文章链接、登录使应用之间相互调用后再点击Find Traces
+- 查看链路。首先下载zipkin.jar, 使用命令```java -jar zipkin-server-2.10.1-exec.jar localhost:9411```打开服务器。然后再浏览器中访问[http://localhost:9411/zipkin/](http://localhost:9411/zipkin/),发现什么也没有，因为没有此时没有记录服务之间的调用，进入文章列表点击文章链接、登录使应用之间相互调用后再点击Find Traces
 - [](/capture/zipkin-cmd.png)
 - [](/capture/zipkin-board.png)
 
