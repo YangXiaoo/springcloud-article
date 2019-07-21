@@ -69,3 +69,6 @@
 - 使用富文本编辑
 - 页面
 - so on...
+
+## 资料
+- [方志明-springcloud教程-github](https://github.com/forezp/SpringCloudLearning)
