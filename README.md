@@ -52,8 +52,8 @@
 ![](/resource/capture/hystrix-detail.png)
 
 - 查看链路。首先下载[zipkin.jar](/resource/zipkin/zipkin-server-2.10.1-exec.jar), 使用命令```java -jar zipkin-server-2.10.1-exec.jar localhost:9411```打开服务器。然后再浏览器中访问[http://localhost:9411/zipkin/](http://localhost:9411/zipkin/),发现什么也没有，因为没有此时没有记录服务之间的调用，进入文章列表点击文章链接、登录使应用之间相互调用后再点击Find Traces
-![](/capture/zipkin-cmd.png)
-![](/capture/zipkin-board.png)
+![](/resource/capture/zipkin-cmd.png)
+![](/resource/capture/zipkin-board.png)
 
 ## 已经实现的功能
 - 用户注册、登录
