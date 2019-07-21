@@ -1,5 +1,4 @@
 # springcloud-article
-版本：springcloud(Greenwich.RELEASE),springboot(2.1.6.RELEASE)
 ## 使用技术
 - eureka, 服务注册
 - hystrix, 服务容错
@@ -12,8 +11,10 @@
 - 单点登录
 
 ## 环境
-- redis, rabbitMQ, zipkin(本地安装)
 - IDEA
+- springcloud(Greenwich.RELEASE)
+- springboot(2.1.6.RELEASE)
+- redis, rabbitMQ, zipkin
 
 ## 结构
 - 应用层: app-front(处理业务逻辑)
