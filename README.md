@@ -21,7 +21,8 @@
 - 服务层：article-server(文章服务), comment-server(评论服务), user-server(用户服务)
 - 数据层: redis
 - 公共模块: common-module(为整个应用提供公共模块，使用Maven共享)
-
+- 各服务端口
+![](/resource/capture/server-port.png)
 ## 使用
 - [数据库](/resource/sql/bbs.sql)导入，并配置数据库
 - 启动base-server/eureka-server注册服务
