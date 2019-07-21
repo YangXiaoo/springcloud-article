@@ -5,6 +5,7 @@ import online.yangxiao.comment.service.CommentService;
 import online.yangxiao.comment.service.UserService;
 import online.yangxiao.common.entity.Comment;
 import online.yangxiao.common.entity.User;
+import online.yangxiao.common.util.RestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,10 @@ public class CommentController {
 
     // need todo 分页查询
     @RequestMapping("/detail")
-    public Map<String, Object> getComments(@RequestParam(value = "aid", required = true) Integer aid) {
+    public RestResult<List<Comment>> getComments(@RequestParam(value = "aid", required = true) Integer aid) {
         logger.info("comment-server/comment/detail");
 
         List<Comment> commentList = commentService.findByArticleId(aid);
-
         for (Comment comment : commentList) {
             User curUser=  userService.findById(comment.getUserId());
             comment.setUser(curUser);
@@ -43,21 +43,21 @@ public class CommentController {
             for (Comment childComment : childs) {
                 User childUser=  userService.findById(childComment.getUserId());
                 childComment.setUser(childUser);
+                if (childComment.getpUserId() != comment.getUserId()) {
+                    User pUser = userService.findById((childComment.getpUserId()));
+                    childComment.setPuser(pUser);
+                }
             }
             comment.setChildComment(childs);
         }
 
-        Map<String, Object> ret = new HashMap<>();
-        ret.put("status", 1);
-        ret.put("success", true);
-        ret.put("message", "查询评论成功");
-        ret.put("data", JSON.toJSONString(commentList));
+        RestResult<List<Comment>> restResult = new RestResult<>(1,true, "查询成功", commentList);
 
-        return ret;
+        return restResult;
     }
 
     @RequestMapping("/reply")
-    public Map<String, Object> articleReply(@RequestParam(value = "aid") Integer aid,
+    public RestResult<Boolean> articleReply(@RequestParam(value = "aid") Integer aid,
                                             @RequestParam(value = "pcid") Integer pcid,
                                             @RequestParam(value = "uid") Integer uid,
                                             @RequestParam(value = "puid") Integer puid,
@@ -72,17 +72,11 @@ public class CommentController {
         comment.setContent(content);
         int insertRet = commentService.insertComment(comment);
 
-        Map<String, Object> ret = new HashMap<>();
-        if (insertRet == 1) {
-            ret.put("status", 1);
-            ret.put("success", true);
-            ret.put("message", "评论成功");
-        } else {
-            ret.put("status", -1);
-            ret.put("success", false);
-            ret.put("message", "评论失败");
+        RestResult<Boolean> restResult = new RestResult<>();
+        if (insertRet != 1) {
+            restResult = new RestResult<>(0,false, "查询失败");
         }
 
-        return ret;
+        return restResult;
     }
 }

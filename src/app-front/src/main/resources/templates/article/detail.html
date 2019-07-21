@@ -8,28 +8,7 @@
 </head>
 <body>
 <div class="app-header">
-    <ul class="layui-nav">
-        <li class="layui-nav-item">
-            <a th:href="@{/article/list}">HOME</a>
-        </li>
-        <li class="layui-nav-item" th:if="${user}">
-            <a th:href="@{/article/add}">发布<span class="layui-badge-dot"></span></a>
-        </li>
-        <li class="layui-nav-item" lay-unselect="" th:if="${user}">
-            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img" th:text="${user.getUsername()}"></a>
-            <dl class="layui-nav-child">
-                <dd><a href="javascript:;">修改信息</a></dd>
-                <dd><a href="javascript:;">安全管理</a></dd>
-                <dd><a th:href="@{/user/signout}">退了</a></dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item"th:unless="${user}">
-            <a th:href="@{/user/signup}"><span>注册</span></a>
-        </li>
-        <li class="layui-nav-item"th:unless="${user}">
-            <a th:href="@{/user/signin}"><span>登录</span></a>
-        </li>
-    </ul>
+    <div th:include="/common/appFrontHeader :: header"></div>
 </div>
 
 <div class="app-container">
@@ -58,9 +37,9 @@
                         <p th:text="${article.content}"></p>
                     </div>
                     <div class="bbs-single-footer">
-                        <span>点赞: <span th:text="${article.upvote}"></span></span>
-
-                        <span onclick=''>拉黑</span><span th:text="${article.createTime}"></span>
+                        <!--<span>点赞: <span th:text="${article.upvote}"></span></span>-->
+                        <!--<span onclick=''>拉黑</span>-->
+                        <span th:text="${#dates.format(article.createTime, 'MM-dd HH:mm')}"></span>
                         <span onclick="" class="comment reply-btn" th:if="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-uid=${user.id}" data-pcid="0" data-puid="0">回复</span>
                         <span onclick="" class="comment reply-btn" th:unless="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}" data-pcid="0" data-puid="0" data-uid="-1">回复</span>
                         <a style="color: #999;"></a>
@@ -87,7 +66,8 @@
                         <p th:text="${comment.content}"></p>
                     </div>
                     <div class="bbs-single-footer">
-                        <span onclick=''>拉黑</span><span th:text="${comment.createTime}"></span>
+                        <!--<span onclick=''>拉黑</span>-->
+                        <span th:text="${#dates.format(comment.createTime, 'MM-dd HH:mm')}"></span>
                         <span onclick="" class="comment reply-btn" th:if="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${comment.user.id}, data-uid=${user.id}">回复</span>
                         <span onclick="" class="comment reply-btn" th:unless="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${comment.user.id}" data-uid="-1">回复</span>
                         <a style="color: #999;"></a>
@@ -104,15 +84,15 @@
                                         <div class="name">
                                             <a th:href="@{/user/profile(uid=${childComment.user.id})}" target="_blank"><font style="color:#FF5722;" th:text="${childComment.user.username}"></font></a>:
                                                 <a href="{ctx}/user?uid={r.puser.id}" th:if="${comment.user.id == childComment.pUserId}" ></a>
-                                                <a href="{ctx}/user?uid={r.puser.id}" th:if="${comment.user.id != childComment.pUserId}" >@<span th:text="${childComment.pUserId}"></span></a>
+                                                <a href="{ctx}/user?uid={r.puser.id}" th:if="${comment.user.id != childComment.pUserId}" >@<span th:text="${childComment.puser.username}"></span></a>
                                             &nbsp;
                                             <span class="content" th:text="${childComment.content}"></span>
                                         </div>
                                     </div>
 
                                     <div class="bottom">
-                                        <span onclick=''>拉黑</span>
-                                        <span th:text="${childComment.createTime}"></span>
+                                        <!--<span onclick=''>拉黑</span>-->
+                                        <span th:text="${#dates.format(childComment.createTime, 'MM-dd HH:mm')}"></span>
                                         <span onclick="" class="comment reply-btn" th:if="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${childComment.user.id}, data-uid=${user.id}">回复</span>
                                         <span onclick="" class="comment reply-btn" th:unless="${user}" th:attr="data-url=@{/comment/reply}, data-aid=${article.id}, data-pcid=${comment.id}, data-puid=${childComment.user.id}" data-uid="-1">回复</span>
                                     </div>

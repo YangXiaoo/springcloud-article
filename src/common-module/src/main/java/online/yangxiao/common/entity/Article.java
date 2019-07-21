@@ -1,5 +1,7 @@
 package online.yangxiao.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Article {
@@ -29,6 +31,7 @@ public class Article {
 
     private Integer favorite;
 
+//    @JsonFormat(pattern = "MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;
 
     private String content;

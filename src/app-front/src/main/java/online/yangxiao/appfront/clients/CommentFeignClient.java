@@ -1,6 +1,8 @@
 package online.yangxiao.appfront.clients;
 
 import online.yangxiao.appfront.clients.hystrix.CommentFeignClientHystrix;
+import online.yangxiao.common.entity.Comment;
+import online.yangxiao.common.util.RestResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +15,10 @@ import java.util.Map;
 public interface CommentFeignClient {
 
     @RequestMapping("/comment/detail")
-    Map<String, Object> getComments(@RequestParam(value = "aid", required = true) Integer aid);
+    RestResult<List<Comment>> getComments(@RequestParam(value = "aid", required = true) Integer aid);
 
     @RequestMapping("/comment/reply")
-    Map<String, Object> articleReply(@RequestParam(value = "aid") Integer aid,
+    RestResult<Boolean> articleReply(@RequestParam(value = "aid") Integer aid,
                                      @RequestParam(value = "pcid") Integer pcid,
                                      @RequestParam(value = "uid") Integer uid,
                                      @RequestParam(value = "puid") Integer puid,

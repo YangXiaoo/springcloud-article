@@ -2,6 +2,7 @@ package online.yangxiao.appfront.clients.hystrix;
 
 import online.yangxiao.appfront.clients.ArticleFeignClient;
 import online.yangxiao.common.entity.Article;
+import online.yangxiao.common.util.RestResult;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -13,38 +14,26 @@ import java.util.Map;
 @Component
 public class ArticleFeignClientHystrix implements ArticleFeignClient{
     @Override
-    public List<Article> articleList() {
-        System.out.println("article-server error");
-        return new ArrayList<>();
+    public RestResult<List<Article>> articleList() {
+        RestResult<List<Article>> restResult = new RestResult<>(-2, false, "/article/list-api调用失败, aid: ");
+        return restResult;
     }
 
     @Override
-    public Map<String, Object> getArticle(Integer aid) {
-        Map<String, Object>  ret = new HashMap<>();
-        ret.put("status", -2);
-        ret.put("success", false);
-        ret.put("message", "article/detail fail call");
-
-        return ret;
+    public RestResult<Article> getArticle(Integer aid) {
+        RestResult<Article> restResult = new RestResult<>(-2, false, "/article/detail-api调用失败, aid: ");
+        return restResult;
     }
 
     @Override
-    public Map<String, Object> addComment(Integer aid) {
-        Map<String, Object>  ret = new HashMap<>();
-        ret.put("status", -2);
-        ret.put("success", false);
-        ret.put("message", "article/addComment fail call");
-
-        return ret;
+    public RestResult<Boolean> addComment(Integer aid) {
+        RestResult<Boolean> restResult = new RestResult<>(-2, false, "/article/addComment-api调用失败, aid: ");
+        return restResult;
     }
 
     @Override
-    public Map<String, Object> addArticle(Integer uid, String title, String content, String desc) {
-        Map<String, Object>  ret = new HashMap<>();
-        ret.put("status", -2);
-        ret.put("success", false);
-        ret.put("message", "article/add fail call");
-
-        return ret;
+    public RestResult<Boolean> addArticle(Integer uid, String title, String content, String desc) {
+        RestResult<Boolean> restResult = new RestResult<>(-2, false, "/article/add-api调用失败, aid: ");
+        return restResult;
     }
 }

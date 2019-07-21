@@ -2,6 +2,7 @@ package online.yangxiao.appfront.api;
 
 import online.yangxiao.appfront.clients.ArticleFeignClient;
 import online.yangxiao.appfront.clients.CommentFeignClient;
+import online.yangxiao.common.util.RestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,15 @@ public class ApiCommentController {
         logger.info("[comment/reply]");
 
         content.replaceAll("[\n\r]", "<br>");
-        Map<String, Object> commentRet = commentFeign.articleReply(aid, pcid, uid, puid, content);
-        Map<String, Object> articleRet = articleFeign.addComment(aid);
+        RestResult<Boolean> commentRet = commentFeign.articleReply(aid, pcid, uid, puid, content);
+        RestResult<Boolean> articleRet = articleFeign.addComment(aid);
 
-        if (!(Boolean)commentRet.get("success") || !(Boolean)articleRet.get("success")) {
-            logger.info("commentRet.get(\"success\") : {}, articleRet.get(\"success\"): {}",(Boolean)commentRet.get("success"), (Boolean)articleRet.get("success") );
-            commentRet.put("status", -1);
-            commentRet.put("message", "评论失败！");
+        Map<String, Object> ret = new HashMap<>();
+        if (!commentRet.getResSuccess() || !articleRet.getResSuccess()) {
+            logger.info("commentRet.get(\"success\") : {}, articleRet.get(\"success\"): {}",commentRet.getResSuccess(), articleRet.getResSuccess() );
+            ret.put("status", -1);
+            ret.put("message", "评论失败！");
         }
-        return commentRet;
+        return ret;
     }
 }

@@ -8,41 +8,76 @@
 </head>
 <body>
 <div class="app-header">
-    <ul class="layui-nav">
-        <li class="layui-nav-item">
-            <a th:href="@{/article/list}">HOME</a>
-        </li>
-        <li class="layui-nav-item" th:if="${user}">
-            <a th:href="@{/article/add}">发布<span class="layui-badge-dot"></span></a>
-        </li>
-        <li class="layui-nav-item" lay-unselect="" th:if="${user}">
-            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img" th:text="${user.getUsername()}"></a>
-            <dl class="layui-nav-child">
-                <dd><a href="javascript:;">修改信息</a></dd>
-                <dd><a href="javascript:;">安全管理</a></dd>
-                <dd><a th:href="@{/user/signout}">退了</a></dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item"th:unless="${user}">
-            <a th:href="@{/user/signup}"><span>注册</span></a>
-        </li>
-        <li class="layui-nav-item"th:unless="${user}">
-            <a th:href="@{/user/signin}"><span>登录</span></a>
-        </li>
-    </ul>
+    <div th:include="/common/appFrontHeader :: header"></div>
 </div>
 <div class="app-container">
     <div class="layui-row">
         <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3 app-single-box" th:each="article:${articles}">
-            <div class="layui-card">
-                <div class="layui-card-header" th:text="${article.title}">message from config</div>
+            <!--<div class="bbs-article-card">-->
+                <!--<div class="bbs-article-card-header" th:text="${article.title}">message from config</div>-->
+                <!--<a th:href="@{/article/detail(aid=${article.id})}">-->
+                    <!--<div class="layui-card-body" th:text="${article.title}"> </div>-->
+                <!--</a>-->
+            <!--</div>-->
+            <div class="bbs-posts-list words" data="98">
+
+
+
+                <div class="bbs-post-user-info">
+                    <div class="bbs-post-user-info-avatar" user-data="4">
+                        <a th:href="@{/user/profile(uid=${article.user.id})}" style="display: inline-block;">
+                            <img th:src="${article.user.profile}" class="avatar opacity" width="40" height="40"></a>
+                        <div class="bbs-user-info-card"></div>
+                    </div>
+
+                    <div class="bbs-post-user-info-name">
+                        <a th:href="@{/user/profile(uid=${article.user.id})}" target="_blank" th:text="${article.user.username}"></a></div>
+
+                    <div class="bbs-post-user-info-time" title="##"><span th:text="${#dates.format(article.createTime, 'MM-dd HH:mm')}"></span></div>
+                </div><!-- 作者信息 -->
+
                 <a th:href="@{/article/detail(aid=${article.id})}">
-                    <div class="layui-card-body" th:text="${article.content}"> </div>
+                <div class="bbs-post-content " th:text="${article.title}">
+
+                </div>
                 </a>
+
+
+                <!--&lt;!&ndash; 话题 &ndash;&gt;-->
+                <!--<div class="bbs-post-bar">-->
+
+                    <!--<li class="bbs-no-like" onclick="bbs_like_posts(98,this);">-->
+                        <!--<i class="bbs-icon bbs-xihuan2"></i> <span>1</span>-->
+                    <!--</li>-->
+
+                    <!--<li onclick="bbs_comment_toggle(this)"><i class="bbs-icon bbs-pinglun2"></i> <span>1</span></li>-->
+
+                    <!--<li onclick="bbs_reprint_form(98);">-->
+                        <!--<i class="bbs-icon bbs-zhuanzai"></i> <span>0</span>-->
+                    <!--</li>-->
+
+
+                    <!--<li><a href="https://wenyi.me/98.html" target="_blank"><i class="bbs-icon bbs-liulan1"></i> <span>1.25w</span></a></li>-->
+
+                    <!--<li class="tag clear">-->
+                    <!--</li>-->
+
+
+                <!--&lt;!&ndash;</div><div class="bbs-post-like clear"><div class="bbs-post-like-list"><a href="https://wenyi.me/author/34" id="had_like_34"><img src="https://wenyi.me/wp-content/uploads/user_files/34/avatar/avatar_1563336285.jpg" class="avatar opacity" width="40" height="40"></a></div></div><div class="bbs-comment-form" style="display: none;">&ndash;&gt;-->
+
+            <!--</div>-->
+
+                <!--<div class="bbs-post-footer-bar">-->
+<!--<span title="2019-03-15 14:46:41">-->
+<!--03-15 14:46</span>-->
+                    <!--<span>电脑端</span><i class="bbs-icon bbs-gongkai1" title="公开内容"></i></div>-->
+
             </div>
+
             <hr>
         </div>
     </div>
+
 </div>
 </body>
 <script th:src="@{/plugs/layui/layui.js}"></script>

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 public class ApiDemoController {
     private Logger logger = LoggerFactory.getLogger(ApiDemoController.class);
 
-//    @Value("${message}")
+    @Value("${message}")
     private String message;
 
     @RequestMapping("config-client")

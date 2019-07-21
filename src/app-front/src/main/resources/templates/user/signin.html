@@ -8,15 +8,11 @@
 </head>
 <body>
 <div class="app-header">
-    <ul class="layui-nav">
-        <li class="layui-nav-item">
-            <a th:href="@{/article/list}">HOME</a>
-        </li>
-    </ul>
+    <div th:include="/common/appFrontHeader :: header"></div>
 </div>
 <div class="app-container">
     <div class="layui-row">
-        <div class="layui-col-xs12 layui-col-md4 layui-col-md-offset4 app-single-box" >
+        <div class="layui-col-xs12 layui-col-md4 layui-col-md-offset4 " >
             <form class="layui-form" th:action="@{/user/signin}" method="post">
 
                 <div class="layui-form-item">

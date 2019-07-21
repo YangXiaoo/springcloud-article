@@ -11,14 +11,16 @@ body{
 }
 
 .app-single-box {
-    min-height: 200px;
+    min-height: 150px;
     background-color: #fff;
-    clear: both;
     margin-bottom: 10px;
+    padding: 20px 0px 10px 0px;
+    clear: both;
     border-radius: 2px;
     background-repeat: repeat-y;
     position: relative;
     display: flex;
+    /*margin: 10px 0px 10px 0px;*/
 }
 
 .clear:after{
@@ -562,4 +564,100 @@ body{
 .bbs-topic-content li.c,.bbs-topic-content li.c .hot,.bbs-topic-content li.c a {
     font-size: 15px;
     color: #FF9800;
+}
+
+.bbs-post-user-info {
+    font-size: 14px;
+    vertical-align: middle;
+    line-height: 100%;
+    padding: 0 0 15px 20px;
+    float: left;
+    box-sizing: border-box;
+}
+.bbs-post-user-info .bbs-vip-icon{
+    display: none;
+}
+.bbs-post-user-info-avatar {
+    float: left;
+    position: relative;
+    margin-right: 10px;
+}
+.bbs-post-user-info-avatar img.avatar {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    border-radius: 100%;
+    border: 1px solid #f3f3f3;
+}
+.bbs-post-user-info-name {
+    margin-left: 50px;
+    width: 100%;
+}
+.bbs-post-user-info-name>a {
+    display: inline-flex;
+    overflow: hidden;
+    height: 18px;
+}
+.bbs-post-user-info-time {
+    width: 160px;
+    margin: 10px 0 0 50px;
+    font-size: 13px;
+    color: #808080;
+    cursor: pointer;
+}
+.bbs-post-user-info-time i {
+    margin-left: 10px;
+    font-size: 14px;
+}
+.bbs-post-user-info-time span {
+    font-size: 12px;
+}
+.bbs-post-user-info-name i.commend {
+    font-size: 20px;
+    vertical-align: -3px;
+    margin-left: 6px;
+    color: #FF5722;
+    cursor: pointer;
+}
+.bbs-post-content{
+    overflow: hidden;
+    font-size: 15px;
+    word-break: break-all;
+    line-height: 160%;
+    clear: both;
+    padding: 0 20px;
+}
+.bbs-post-bar {
+    margin: 15px 0 0 0;
+    height: 30px;
+    padding: 0 20px;
+}
+.bbs-had-like i {
+    color: #f56b41;
+}
+.bbs-post-bar li{
+    float: left;
+    position: relative;
+    line-height: 32px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #9c9898;
+    margin-right: 40px;
+}
+.bbs-post-bar li a {
+    color: #9c9898;
+}
+.bbs-post-footer-bar {
+    color: #AAAAAA;
+    font-size: 12px;
+    text-align: right;
+    margin-top: 5px;
+}
+.bbs-post-footer-bar span {
+    margin-right: 10px;
+}
+.bbs-post-footer-bar i {
+    padding-right: 20px;
+    cursor: pointer;
+    vertical-align: -1px;
 }

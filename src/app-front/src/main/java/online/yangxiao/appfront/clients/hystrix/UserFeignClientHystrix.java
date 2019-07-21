@@ -2,6 +2,7 @@ package online.yangxiao.appfront.clients.hystrix;
 
 import online.yangxiao.appfront.clients.UserFeignClient;
 import online.yangxiao.common.entity.Article;
+import online.yangxiao.common.util.RestResult;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -13,39 +14,27 @@ import java.util.Map;
 @Component
 public class UserFeignClientHystrix implements UserFeignClient{
     @Override
-    public boolean signup(String email, String password, String username) {
-        System.out.println("signup fail callback");
-        return false;
+    public RestResult<Boolean> signup(String email, String password, String username) {
+        RestResult<Boolean> restResult = new RestResult<>(-2, false, "signup-api调用失败");
+        return restResult;
     }
 
     @Override
-    public Map<String, Object> signin(String email, String password, String token) {
-        Map<String, Object>  ret = new HashMap<>();
-        ret.put("status", -2);
-        ret.put("success", false);
-        ret.put("message", "user/signin fail call");
-
-        return ret;
+    public RestResult<User> signin(String email, String password, String token) {
+        RestResult<User> restResult = new RestResult<>(-2, false, "signin-api调用失败");
+        return restResult;
     }
 
     @Override
-    public Map<String, Object> checkToken(String email, String token) {
-        Map<String, Object>  ret = new HashMap<>();
-        ret.put("status", -2);
-        ret.put("success", false);
-        ret.put("message", "user/checkToken fail call");
-
-        return ret;
+    public RestResult<Boolean> checkToken(String email, String token) {
+        RestResult<Boolean> restResult = new RestResult<>(-2, false, "checkToken-api调用失败");
+        return restResult;
     }
 
     @Override
-    public Map<String, Object> signout(String email, String token) {
-        Map<String, Object>  ret = new HashMap<>();
-        ret.put("status", -2);
-        ret.put("success", false);
-        ret.put("message", "user/signout fail call");
-
-        return ret;
+    public RestResult<Boolean> signout(String email, String token) {
+        RestResult<Boolean> restResult = new RestResult<>(-2, false, "signout-api调用失败");
+        return restResult;
     }
 
     @Override

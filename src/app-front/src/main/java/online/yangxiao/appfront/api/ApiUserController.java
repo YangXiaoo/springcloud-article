@@ -1,6 +1,7 @@
 package online.yangxiao.appfront.api;
 
 
+import online.yangxiao.common.util.RestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
@@ -33,13 +34,14 @@ public class ApiUserController extends BaseController{
                          @RequestParam(value="email", required=false) String email,
                          @RequestParam(value="password", required=false) String password,
                          @RequestParam(value="username", required=false) String username) {
+        model.addAttribute("user", (User)getCurrentUser());
         if (email == null || password == null || username == null) {
             return "user/signup";
         }
         logger.info("[request app-front-server user/sigup] email: {}, username: {}, password: {}", email, username, password);
-        boolean ret = userFeign.signup(email, password, username);
+        RestResult<Boolean>  ret = userFeign.signup(email, password, username);
         logger.info("[request app-front-server user/sigup] userFeign.signup(email, password, username): {}", ret);
-        if (ret) {
+        if (ret.getResSuccess()) {
             return "user/signin";
         }
 
@@ -52,18 +54,19 @@ public class ApiUserController extends BaseController{
                          @RequestParam(value="password", required=false) String password) {
         logger.info("[request app-front-server user/sigin]");
         if (email == null || password == null) {
+            model.addAttribute("user", (User)getCurrentUser());
             return "user/signin";
         }
         logger.info("before userFeign");
         String token = RandomGen.getToken(email);
 
-        Map<String, Object> userFeignRet  = userFeign.signin(email, password, token);
-        logger.info("[request app-front-server user/sigin] email: {}, password: {}, message: {}", email, password, userFeignRet.get("message"));
-        if (!(Boolean) userFeignRet.get("success")) {
+        RestResult<User> userFeignRet  = userFeign.signin(email, password, token);
+        logger.info("[request app-front-server user/sigin] email: {}, password: {}, message: {}, success: {}", email, password, userFeignRet.getResMsg(), userFeignRet.getResSuccess());
+        if (!userFeignRet.getResSuccess()) {
             return "user/signin";
         } else {
-            logger.info("user.toString(): {}", userFeignRet.get("data").toString());
-            User curUser = JSON.parseObject((String) userFeignRet.get("data"), User.class);
+            logger.info("user.toString(): {}", userFeignRet.getResData().toString());
+            User curUser = userFeignRet.getResData();
             // 存储session
             getSession().setAttribute("user", curUser);
             getSession().setAttribute("email", email);
@@ -107,9 +110,9 @@ public class ApiUserController extends BaseController{
         String token = (String) getSession().getAttribute("token");
 
         if (email != null && token != null) {
-            Map<String, Object> userFeignRet = userFeign.signout(email, token);
-            if (!(Boolean) userFeignRet.get("success")) {
-                model.addAttribute("message", userFeignRet.get("message"));
+            RestResult<Boolean> userFeignRet = userFeign.signout(email, token);
+            if (!userFeignRet.getResSuccess()) {
+                model.addAttribute("message", userFeignRet.getResMsg());
                 return "error/info";
             }
             getSession().setAttribute("user", null);

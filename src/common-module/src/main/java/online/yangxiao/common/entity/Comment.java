@@ -1,5 +1,7 @@
 package online.yangxiao.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +24,14 @@ public class Comment {
 
     private String viewed;
 
+//    @JsonFormat(pattern = "MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;
 
     private String content;
 
     private User user;
+
+    private User puser;
     // 添加comment
     private List<Comment> childComment;
 
@@ -35,6 +40,10 @@ public class Comment {
     public List<Comment> getChildComment() { return childComment; }
 
     public void setUser(User user) { this.user = user; }
+
+    public User getPuser() { return  puser; }
+
+    public void setPuser(User puser) { this.puser = puser; }
 
     public User getUser() { return  user; }
 

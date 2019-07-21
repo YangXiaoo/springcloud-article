@@ -1,6 +1,7 @@
 package online.yangxiao.appfront.clients;
 
 import online.yangxiao.appfront.clients.hystrix.UserFeignClientHystrix;
+import online.yangxiao.common.util.RestResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,21 +17,21 @@ import java.util.Map;
 public interface UserFeignClient {
 
     @RequestMapping("/user/signup")
-    public boolean signup(@RequestParam(value="email", required=false) String email,
-                          @RequestParam(value="password", required=false) String password,
-                          @RequestParam(value="username", required=false) String username);
+    public RestResult<Boolean> signup(@RequestParam(value="email", required=false) String email,
+                                      @RequestParam(value="password", required=false) String password,
+                                      @RequestParam(value="username", required=false) String username);
 
     @RequestMapping("/user/signin")
-    public Map<String, Object> signin(@RequestParam(value="email", required=false) String email,
+    public RestResult<User> signin(@RequestParam(value="email", required=false) String email,
                                       @RequestParam(value="password", required=false) String password,
                                       @RequestParam(value="token", required=false) String token);
 
     @RequestMapping("/user/checkToken")
-    public Map<String, Object> checkToken(@RequestParam(value="email", required=false) String email,
+    public RestResult<Boolean> checkToken(@RequestParam(value="email", required=false) String email,
                                           @RequestParam(value="token", required=false) String token);
 
     @RequestMapping("/user/signout")
-    public Map<String, Object> signout(@RequestParam(value="email", required=false) String email,
+    public RestResult<Boolean> signout(@RequestParam(value="email", required=false) String email,
                                        @RequestParam(value="token", required=false) String token);
 
     @RequestMapping("/user/test")

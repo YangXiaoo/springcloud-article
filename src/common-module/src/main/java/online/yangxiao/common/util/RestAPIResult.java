@@ -24,7 +24,7 @@ public class RestAPIResult<T> implements Serializable {
 
     private String dataCode;
 
-    public int getresCode() {
+    public int getResCode() {
         return resCode;
     }
 
@@ -44,7 +44,7 @@ public class RestAPIResult<T> implements Serializable {
         return resData;
     }
 
-    public void setresData(T resData) {
+    public void setResData(T resData) {
         this.resData = resData;
     }
 
@@ -87,8 +87,8 @@ public class RestAPIResult<T> implements Serializable {
     }
 
     public RestAPIResult(){
-        this.resData=(T) new Object();
-        this.resMap=new HashMap<String, Object>();
+        this.resData = (T) new Object();
+        this.resMap = new HashMap<String, Object>();
     }
 
     public void success(T object){
@@ -100,8 +100,8 @@ public class RestAPIResult<T> implements Serializable {
     public void error(){
         this.resCode = SystemConstants.Code.error;
         this.resMsg = SystemConstants.Code.FAIL;
-        this.resData=(T) new Object();
-        this.resMap=new HashMap<String, Object>();
+        this.resData = (T) new Object();
+        this.resMap = new HashMap<String, Object>();
     }
     public void error(String message){
         this.resCode = SystemConstants.Code.error;
